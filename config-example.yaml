@@ -1,0 +1,15 @@
+mqtt:
+  serverIP: 192.168.178.32
+  port: 1883
+  user: chrak
+  password: mymqtt
+  
+cmulti2MqttBridge:
+  comPort : /dev/ttyUSB0
+  baudRate : 57600
+  
+Mqtt2cmultiBridge:
+  comPort : /dev/ttyUSB1
+  baudRate : 57600
+  listenTo : Cmulti/#
+  
