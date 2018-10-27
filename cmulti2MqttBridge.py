@@ -58,7 +58,8 @@ START_MESSAGE = 1
 LENGTH2_MESSAGE = 2
 COUNT_MESSAGE = 3
 
-with open('config.yaml') as f:
+path = (os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
+with open(path+'/config.yaml') as f:
   dataMap = yaml.safe_load(f)
 
 interface = serial.Serial(dataMap["cmulti2MqttBridge"]["comPort"], dataMap["cmulti2MqttBridge"]["baudRate"], timeout=3)

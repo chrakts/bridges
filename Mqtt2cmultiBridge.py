@@ -25,7 +25,8 @@ def on_message(client, userdata, msg):
   CmultiServer.write(st.encode('utf-8'))
   print("Write to CMultiServer: "+st)
 
-with open('config.yaml') as f:
+path = (os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
+with open(path+'/config.yaml') as f:
   dataMap = yaml.safe_load(f)
 
 client = mqtt.Client()
