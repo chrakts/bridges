@@ -1,3 +1,4 @@
+import inspect, os
 import paho.mqtt.client as mqtt
 from PyCRC.CRCCCITT import CRCCCITT
 import yaml
