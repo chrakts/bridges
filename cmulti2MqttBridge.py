@@ -98,7 +98,7 @@ try:
             Inhalt = actCommand[13:-6]
             mqqtAddress = ("Cmulti/%s/%s/%s/%s/%s/%s"%(Quelle,Function,Address,Job,Ziel,dataType))
             print("%s/%s/%s/%s/%s:%s"%(Ziel,Quelle,Function,Address,Job,Inhalt))
-            publish.single(mqqtAddress, Inhalt, hostname="192.168.178.32",auth = {"username":"chrak", "password":"mymqtt"})
+            publish.single(mqqtAddress, Inhalt, hostname=dataMap["mqtt"]["serverIP"],auth = {"username":dataMap["mqtt"]["user"], "password":dataMap["mqtt"]["password"]})
           status = NO_MESSAGE
     except Exception as e: 
       print(e)
