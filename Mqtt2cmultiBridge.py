@@ -3,6 +3,7 @@ import paho.mqtt.client as mqtt
 from PyCRC.CRCCCITT import CRCCCITT
 import yaml
 import serial
+import time
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -31,6 +32,8 @@ def on_message(client, userdata, msg):
 path = (os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
 with open(path+'/config.yaml') as f:
   dataMap = yaml.safe_load(f)
+
+time.sleep(10)
 
 client = mqtt.Client()
 client.on_connect = on_connect
