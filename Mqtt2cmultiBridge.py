@@ -1,6 +1,7 @@
 import paho.mqtt.client as mqtt
 from PyCRC.CRCCCITT import CRCCCITT
 import yaml
+import serial
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -16,14 +17,13 @@ def on_connect(client, userdata, flags, rc):
 # 0    1      2        3       4   5      6
 def on_message(client, userdata, msg):
   sep = msg.topic.split('/')
-  for i in sep:
-    print(i)  
   st = sep[5]+sep[1]+'S'+sep[2]+sep[3]+sep[4]+sep[6]+(msg.payload).decode('ascii')+'<'
   l = len(st)+7
   st = "#%02x"%(l)+st
   crcString = ("%04x" % (CRCCCITT().calculate(st)))
-  st = st + crcString + "\n\r"
-  print(st)
+  st = st + crcString + "\r\n"
+  CmultiServer.write(st.encode('utf-8'))
+  print("Write to CMultiServer: "+st)
 
 with open('config.yaml') as f:
   dataMap = yaml.safe_load(f)
@@ -33,9 +33,13 @@ client.on_connect = on_connect
 client.on_message = on_message
 client.username_pw_set(username=dataMap["mqtt"]["user"],password=dataMap["mqtt"]["password"])
 client.connect(dataMap["mqtt"]["serverIP"], port=int(dataMap["mqtt"]["port"]),  keepalive=60)
+CmultiServer = serial.Serial(dataMap["Mqtt2cmultiBridge"]["comPort"], dataMap["Mqtt2cmultiBridge"]["baudRate"], timeout=10)
+
+
 
 # Blocking call that processes network traffic, dispatches callbacks and
 # handles reconnecting.
 # Other loop*() functions are available that give a threaded interface and a
 # manual interface.
 client.loop_forever()
+CmultiServer.close()

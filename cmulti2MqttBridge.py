@@ -2,6 +2,7 @@ import paho.mqtt.publish as publish
 import serial
 import signal
 from PyCRC.CRCCCITT import CRCCCITT
+import yaml
 
 #publish.single("home-assistant/window/contact", "ON", hostname="192.168.178.27")
 
@@ -57,7 +58,10 @@ START_MESSAGE = 1
 LENGTH2_MESSAGE = 2
 COUNT_MESSAGE = 3
 
-interface = serial.Serial("/dev/ttyUSB0", 57600, timeout=3)
+with open('config.yaml') as f:
+  dataMap = yaml.safe_load(f)
+
+interface = serial.Serial(dataMap["cmulti2MqttBridge"]["comPort"], dataMap["cmulti2MqttBridge"]["baudRate"], timeout=3)
 status = NO_MESSAGE
 try:
   while(1):
