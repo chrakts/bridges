@@ -97,7 +97,7 @@ try:
             Address = actCommand[10]
             Job = actCommand[11]
             dataType = actCommand[12]
-            Inhalt = actCommand[13:-6]
+            Inhalt = actCommand[13:-5]
             mqqtAddress = ("Cmulti/%s/%s/%s/%s/%s/%s"%(Quelle,Function,Address,Job,Ziel,dataType))
             print("%s/%s/%s/%s/%s:%s"%(Ziel,Quelle,Function,Address,Job,Inhalt))
             publish.single(mqqtAddress, Inhalt, hostname=dataMap["mqtt"]["serverIP"],auth = {"username":dataMap["mqtt"]["user"], "password":dataMap["mqtt"]["password"]})
