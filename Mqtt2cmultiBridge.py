@@ -18,8 +18,10 @@ def on_connect(client, userdata, flags, rc):
 # 0    1      2        3       4   5      6
 def on_message(client, userdata, msg):
   sep = msg.topic.split('/')
-  st = sep[5]+sep[1]+'S'+sep[2]+sep[3]+sep[4]+sep[6]+(msg.payload).decode('ascii')+'<'
-  l = len(st)+7
+  st = 'D'+sep[5]+sep[1]+'S'+sep[2]+sep[3]+sep[4]+sep[6]+(msg.payload).decode('ascii')
+  if sep[6] != '?':
+    st = st +'<'
+  l = len(st)+6
   st = "#%02x"%(l)+st
   crcString = ("%04x" % (CRCCCITT().calculate(st)))
   st = st + crcString + "\r\n"
