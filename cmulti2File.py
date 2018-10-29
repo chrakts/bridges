@@ -3,6 +3,7 @@ import serial
 import signal
 from PyCRC.CRCCCITT import CRCCCITT
 import yaml
+import datetime
 
 #publish.single("home-assistant/window/contact", "ON", hostname="192.168.178.27")
 
@@ -97,10 +98,10 @@ try:
             Job = actCommand[11]
             dataType = actCommand[12]
             Inhalt = actCommand[13:-5]
-            fileName = ("Cmulti_%s%s%s%s%s%s"%(Quelle,Function,Address,Job,Ziel,dataType))
+            fileName = ("./data/Cmulti_%s%s%s%s%s%s"%(Quelle,Function,Address,Job,Ziel,dataType))
             print("%s/%s/%s/%s/%s:%s"%(Ziel,Quelle,Function,Address,Job,Inhalt))
             with open(fileName, 'a') as file:
-              file.write(str(datetime.datetime.now())+";"+Inhalt)
+              file.write(str(datetime.datetime.now())+";"+Inhalt+"\n")
             #publish.single(mqqtAddress, Inhalt, hostname=dataMap["mqtt"]["serverIP"],auth = {"username":dataMap["mqtt"]["user"], "password":dataMap["mqtt"]["password"]})
           status = NO_MESSAGE
     except Exception as e: 
