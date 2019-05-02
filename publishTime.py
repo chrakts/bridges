@@ -13,7 +13,7 @@ auth = {'username':dataMap["mqtt"]["user"], 'password':dataMap["mqtt"]["password
 
 
 #t = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
-t =  int( time.time() )
+t =  int( time.time() )-946684800
 publish.single(dataMap["mqtt"]["timeAddress"],
   payload=str(t),
   hostname=dataMap["mqtt"]["serverIP"],
