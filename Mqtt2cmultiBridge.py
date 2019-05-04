@@ -35,7 +35,7 @@ with open(path+'/config.yaml') as f:
 
 time.sleep(10)
 
-client = mqtt.Client()
+client = mqtt.Client( )
 client.on_connect = on_connect
 client.on_message = on_message
 client.username_pw_set(username=dataMap["mqtt"]["user"],password=dataMap["mqtt"]["password"])
