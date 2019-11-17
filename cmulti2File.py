@@ -1,5 +1,5 @@
 import inspect, os
-import serial
+import serial 
 import signal
 from PyCRC.CRCCCITT import CRCCCITT
 import yaml
