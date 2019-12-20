@@ -6,11 +6,11 @@ mqtt:
   timeAddress: Mqtt/DT/d/1/d/BR/T
   
 cmulti2MqttBridge:
-  comPort : /dev/RS485-1
+  comPort : /dev/RS485-2
   baudRate : 57600
   
 Mqtt2cmultiBridge:
-  comPort : /dev/tty1  # war   
+  comPort : /dev/ttyS0  # war   
   baudRate : 57600
   listenTo : Mqtt/#
 
@@ -23,5 +23,5 @@ mqtt2FileBridge:
       name: DruckDraußen
     - topic: Cmulti/H1/H/1/s/BR/d
       name: Heizung_Stufe_1
-    - topic: Cmulti/H1/H/2/s/BR/d
+    - topic: Cmulti/H1/H/1/S/BR/d
       name: Heizung_Stufe_2
