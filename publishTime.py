@@ -5,6 +5,8 @@ import inspect,os
 import time
 from pytz import timezone
 import datetime
+import setproctitle
+setproctitle.setproctitle('py3-publishTime')
 
 tz = timezone('Europe/Berlin')
 utc_dt = datetime.datetime.utcfromtimestamp(time.time())

@@ -4,6 +4,8 @@ from PyCRC.CRCCCITT import CRCCCITT
 import yaml
 import serial
 import time
+import setproctitle
+setproctitle.setproctitle('py3-Mqtt3cmultiBridge')
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):

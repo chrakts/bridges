@@ -4,6 +4,8 @@ import serial
 import signal
 from PyCRC.CRCCCITT import CRCCCITT
 import yaml
+import setproctitle
+setproctitle.setproctitle('py3-cmulti2MqttBridge')
 
 #publish.single("home-assistant/window/contact", "ON", hostname="192.168.178.27")
 

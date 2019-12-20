@@ -5,6 +5,9 @@ import yaml
 import datetime
 import paho.mqtt.client as mqtt
 import time
+import setproctitle
+setproctitle.setproctitle('py3-mqtt2FileBridge')
+
 
 #publish.single("home-assistant/window/contact", "ON", hostname="192.168.178.27")
 
