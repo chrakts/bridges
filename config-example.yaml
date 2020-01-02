@@ -3,7 +3,7 @@ mqtt:
   port: 1883
   user: chrak
   password: ********
-  timeAddress: Mqtt/DT/d/1/d/BR/T
+  timeAddress: Mqtt/DT/t/1/s/BR/T
   
 cmulti2MqttBridge:
   comPort : /dev/RS485-2
@@ -11,11 +11,11 @@ cmulti2MqttBridge:
   
 Mqtt2cmultiBridge:
   comPort : /dev/ttyS0  # war   
-  baudRate : 57600
+  baudRate : 115200
   listenTo : Mqtt/#
 
 mqtt2FileBridge:
-  dataFolder: /home/chrak/mqttData 
+  dataFolder: /home/pi/mqttData 
   infos:
     - topic: Cmulti/IP/C/1/h/BR/F
       name: FeuchteDraußen
