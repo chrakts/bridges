@@ -13,10 +13,10 @@ path = (os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))
 with open(path+'/config.yaml') as f:
   dataMap = yaml.safe_load(f)
 
+auth = {'username':dataMap["mqtt"]["user"], 'password':dataMap["mqtt"]["password"]}
 
 for service in dataMap["serviceStatus"]:
   
-  #service = "cmulti-bridge"
   p =  subprocess.Popen(["systemctl", "is-active",  service["serviceName"]], stdout=subprocess.PIPE)
   (output, err) = p.communicate()
   output = output.decode('utf-8').strip()
@@ -26,13 +26,7 @@ for service in dataMap["serviceStatus"]:
     result = False
   print(service["serviceName"]+": "+str(result))
 
-"""
-auth = {'username':dataMap["mqtt"]["user"], 'password':dataMap["mqtt"]["password"]}
-
-#t = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
-t =  int( time.time() )-946684800+diff
-publish.single(dataMap["mqtt"]["timeAddress"],
-  payload=str(t),
-  hostname=dataMap["mqtt"]["serverIP"],
-  auth=auth)
-"""
+  publish.single(service["serviceAddress"],
+    payload=str(result),
+    hostname=dataMap["mqtt"]["serverIP"],
+    auth=auth)

@@ -6,10 +6,14 @@ mqtt:
   timeAddress: Mqtt/DT/t/1/s/BR/T
   
 serviceStatus:
-    - serviceName: multi-bridge
+    - serviceName: mqtt-bridge
       serviceAddress: Mqtt/SV/m/1/d/BR/T
     - serviceName: mqtt2FileBridge
       serviceAddress: Mqtt/SV/f/1/d/BR/T
+    - serviceName: mqttFritzboxBridge
+      serviceAddress: Mqtt/SV/z/1/d/BR/T
+    - serviceName: cmulti-bridge
+      serviceAddress: Mqtt/SV/c/1/d/BR/T
 
 cmulti2MqttBridge:
   comPort : /dev/RS485-2
