@@ -12,12 +12,12 @@ import subprocess
 service = "cmulti-bridge"
 p =  subprocess.Popen(["systemctl", "is-active",  service], stdout=subprocess.PIPE)
 (output, err) = p.communicate()
-output = output.decode('utf-8')
+output = output.decode('utf-8').strip()
 if output=="active":
   print(output)
 else:
   print("<<not active>>")
-
+  print(output)
 """
 path = (os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
 with open(path+'/config.yaml') as f:
