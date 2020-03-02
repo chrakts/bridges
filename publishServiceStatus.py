@@ -9,20 +9,24 @@ setproctitle.setproctitle('py3-publishServiceStatus')
 import subprocess
 
 
-service = "cmulti-bridge"
-p =  subprocess.Popen(["systemctl", "is-active",  service], stdout=subprocess.PIPE)
-(output, err) = p.communicate()
-output = output.decode('utf-8').strip()
-if output=="active":
-  print(output)
-else:
-  print("<<not active>>")
-  print(output)
-"""
 path = (os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
 with open(path+'/config.yaml') as f:
   dataMap = yaml.safe_load(f)
 
+
+for service in dataMap["serviceStatus"]:
+  
+  #service = "cmulti-bridge"
+  p =  subprocess.Popen(["systemctl", "is-active",  service["serviceName"]], stdout=subprocess.PIPE)
+  (output, err) = p.communicate()
+  output = output.decode('utf-8').strip()
+  if output=="active":
+    result = True
+  else:
+    result = False
+  print(service["serviceName"]+": "+str(result))
+
+"""
 auth = {'username':dataMap["mqtt"]["user"], 'password':dataMap["mqtt"]["password"]}
 
 #t = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')

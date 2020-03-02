@@ -4,6 +4,12 @@ mqtt:
   user: chrak
   password: *************
   timeAddress: Mqtt/DT/t/1/s/BR/T
+  
+serviceStatus:
+    - serviceName: multi-bridge
+      serviceAddress: Mqtt/SV/m/1/d/BR/T
+    - serviceName: mqtt2FileBridge
+      serviceAddress: Mqtt/SV/f/1/d/BR/T
 
 cmulti2MqttBridge:
   comPort : /dev/RS485-2
