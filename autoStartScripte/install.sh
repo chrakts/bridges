@@ -12,3 +12,4 @@ systemctl enable mqttFritzboxBridge.service
 cp ll /home/pi/.local/bin
 cp la /home/pi/.local/bin
 
+cp ./serial-symlinks.rules /etc/udev/rules.d
