@@ -9,4 +9,6 @@ systemctl enable cmulti-bridge.service
 systemctl enable mqtt2FileBridge.service
 systemctl enable mqttFritzboxBridge.service
 
+cp ll /home/pi/.local/bin
+cp la /home/pi/.local/bin
 
