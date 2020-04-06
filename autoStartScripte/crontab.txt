@@ -23,6 +23,7 @@
 * * * * * echo "Hello from root cron" > /tmp/HelloFronRoot.txt
 * * * * * python3 /home/pi/repositories/bridges/publishTime.py > /tmp/cronBridges.txt
 * * * * * python3 /home/pi/repositories/bridges/publishFritzBox.py > /tmp/cronBridges.txt
+* * * * * python3 /home/pi/repositories/bridges/publishServiceStatus.py > /tmp/cronBridges.txt
 
 
 
