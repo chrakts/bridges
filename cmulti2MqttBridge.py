@@ -96,23 +96,23 @@ try:
             header = actCommand[8]
             Ziel = actCommand[4:6]            
             Quelle = actCommand[6:8]
-            if header == 'A' or header == 'a':
-              #11DCPCQA682<81af
-              if header == 'A':
-                success = 'true'
+            if header == 'R' or header == 'r':
+              #24DCPKgrS0CTcommand not allowed<c76f
+              base = "Answer"
+              if header == 'R':
+                extension = '/true'
               else:
-                success = 'false'
-              Inhalt = actCommand[9:-5]
-              mqqtAddress = ("Answer/%s/%s/%s"%(Quelle,Ziel,success))
+                extension = '/false'
             else:
               #18DBRIPSC1tF22.6701<2e6f
-
-              Function = actCommand[9]
-              Address = actCommand[10]
-              Job = actCommand[11]
-              dataType = actCommand[12]
-              Inhalt = actCommand[13:-5]
-              mqqtAddress = ("Cmulti/%s/%s/%s/%s/%s/%s"%(Quelle,Function,Address,Job,Ziel,dataType))
+              base = "Cmulti"
+              extension = ""
+            Function = actCommand[9]
+            Address = actCommand[10]
+            Job = actCommand[11]
+            dataType = actCommand[12]
+            Inhalt = actCommand[13:-5]
+            mqqtAddress = ("%s/%s/%s/%s/%s/%s/%s%s"%(base,Quelle,Function,Address,Job,Ziel,dataType,extension))
             print("%s/%s"%(mqqtAddress,Inhalt))
             publish.single(mqqtAddress, Inhalt, hostname=dataMap["mqtt"]["serverIP"],auth = {"username":dataMap["mqtt"]["user"], "password":dataMap["mqtt"]["password"]})
           status = NO_MESSAGE
