@@ -93,15 +93,27 @@ try:
           if crcString==actCommand[-4:]:
             print(actCommand)
             print("crc-ok")
+            header = actCommand[8]
             Ziel = actCommand[4:6]            
             Quelle = actCommand[6:8]
-            Function = actCommand[9]
-            Address = actCommand[10]
-            Job = actCommand[11]
-            dataType = actCommand[12]
-            Inhalt = actCommand[13:-5]
-            mqqtAddress = ("Cmulti/%s/%s/%s/%s/%s/%s"%(Quelle,Function,Address,Job,Ziel,dataType))
-            print("%s/%s/%s/%s/%s:%s"%(Ziel,Quelle,Function,Address,Job,Inhalt))
+            if header == 'A' or header == 'a':
+              #11DCPCQA682<81af
+              if header == 'A':
+                success = 'true'
+              else:
+                success = 'false'
+              Inhalt = actCommand[9:-5]
+              mqqtAddress = ("Answer/%s/%s/%s"%(Quelle,Ziel,success))
+            else:
+              #18DBRIPSC1tF22.6701<2e6f
+
+              Function = actCommand[9]
+              Address = actCommand[10]
+              Job = actCommand[11]
+              dataType = actCommand[12]
+              Inhalt = actCommand[13:-5]
+              mqqtAddress = ("Cmulti/%s/%s/%s/%s/%s/%s"%(Quelle,Function,Address,Job,Ziel,dataType))
+            print("%s/%s"%(mqqtAddress,Inhalt))
             publish.single(mqqtAddress, Inhalt, hostname=dataMap["mqtt"]["serverIP"],auth = {"username":dataMap["mqtt"]["user"], "password":dataMap["mqtt"]["password"]})
           status = NO_MESSAGE
     except Exception as e: 
