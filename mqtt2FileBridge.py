@@ -28,12 +28,10 @@ def on_message(client, userdata, msg):
   for info in dataMap["mqtt2FileBridge"]["infos"]:
     if info["topic"]==topic:
       fileName = dataMap["mqtt2FileBridge"]["dataFolder"]+"/"+str(datetime.datetime.now().date())+"_"+info["name"]
-      print(fileName)
-      with open(fileName, 'a',encoding='utf8') as file:
-        file.write((str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:S"))+";"+payload+"\n"))
-        print("now writeing")
+      with open(fileName, 'a',encoding='utf8') as myfile:
+        myfile.write((str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))+";"+payload+"\n"))
+        print(fileName)
 
-  
 path = (os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
 with open(path+'/config.yaml') as f:
   dataMap = yaml.safe_load(f)
