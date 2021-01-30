@@ -2,9 +2,9 @@ mqtt:
   serverIP: 192.168.178.62
   port: 1883
   user: chrak
-  password: *************
-  timeAddress: Mqtt/DT/t/1/s/BR/T
-  
+  password: ***********************
+  timeAddress: Mqtt/DT/d/1/d/BR/T
+
 serviceStatus:
     - serviceName: mqtt-bridge
       serviceAddress: Mqtt/SV/m/1/d/BR/T
@@ -14,18 +14,18 @@ serviceStatus:
       serviceAddress: Mqtt/SV/z/1/d/BR/T
     - serviceName: cmulti-bridge
       serviceAddress: Mqtt/SV/c/1/d/BR/T
-
+ 
 cmulti2MqttBridge:
   comPort : /dev/RS485-2
   baudRate : 57600
-
+  
 Mqtt2cmultiBridge:
-  comPort : /dev/ttyS0  # war
+  comPort : /dev/ttyS0     
   baudRate : 115200
   listenTo : Mqtt/#
 
 mqtt2FileBridge:
-  dataFolder: /home/pi/mqttData
+  dataFolder: /home/chrak/mqttData 
   infos:
     - topic: Cmulti/IP/C/1/h/BR/F
       name: FeuchteDraußen
@@ -36,9 +36,20 @@ mqtt2FileBridge:
     - topic: Cmulti/H1/H/1/S/BR/d
       name: Heizung_Stufe_2
 
+getFtp:
+  ip: 192.168.178.62
+  port: 210
+  user: myconfig
+  passwd: ***********************
+  logFile: /home/chrak/_mytemp/getFtp.log
+  directories:
+    - 
+      remotePath: /backup
+      localPath:  /home/chrak/_mytemp
+
 fritzBoxMain:
   ip: 192.168.178.1
-  password: **********************
+  password: ***********************
   switches:
     - setTopic: Mqtt/Fb/W/1/S/BR/T
       getTopic: Mqtt/Fb/W/1/g/BR/T
@@ -49,6 +60,6 @@ fritzBoxMain:
     - setTopic: Mqtt/Fb/W/3/S/BR/T
       getTopic: Mqtt/Fb/W/3/g/BR/T
       command: WLANConfiguration3
-
+  
 # Mqtt/Quelle/Function/Address/Job/Target/Datatype
 # 0    1      2        3       4   5      6  

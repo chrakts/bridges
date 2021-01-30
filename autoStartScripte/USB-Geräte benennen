@@ -1,0 +1,7 @@
+Diese Datei unter /etc/udev/rules.d/serial-symlinks.rules ablegen
+
+SUBSYSTEM=="tty", ENV{ID_SERIAL_SHORT}=="A6043WX1", SYMLINK+="RS485-1"
+SUBSYSTEM=="tty", ENV{ID_SERIAL_SHORT}=="A603W9TE", SYMLINK+="RS485-2"
+SUBSYSTEM=="tty", ENV{ID_SERIAL_SHORT}=="A5065ZIE", SYMLINK+="atxmega-1"
+SUBSYSTEM=="tty", ENV{ID_SERIAL_SHORT}=="A5065ZID", SYMLINK+="board-1"
+
