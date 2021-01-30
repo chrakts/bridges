@@ -1,6 +1,7 @@
 import ftplib
 import inspect,os
 import yaml
+from datetime import datetime
 
 
 path = (os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
@@ -35,6 +36,8 @@ for directory in dataMap["getFtp"]["directories"]:
       print("skip: %s"%remoteFile)
     else:
       print("copy: %s"%remoteFile)
+      with open(dataMap["getFtp"]["logFile"], "a") as myfile:
+        myfile.write("%s -> copy: %s\n"%(datetime.now().strftime("%Y-%m-%d %H:%M"),remoteFile))
       ftp.retrbinary("RETR " + remoteFile, open(localPath+'/'+remoteFile, 'wb').write)
 
 ftp.quit()
