@@ -30,7 +30,7 @@ def on_message(client, userdata, msg):
       fileName = dataMap["mqtt2FileBridge"]["dataFolder"]+"/"+str(datetime.datetime.now().date())+"_"+info["name"]
       print(fileName)
       with open(fileName, 'a',encoding='utf8') as file:
-        file.write((str(datetime.now().strftime("%Y-%m-%d %H:%M:S"))+";"+payload+"\n"))
+        file.write((str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:S"))+";"+payload+"\n"))
         print("now writeing")
 
   
