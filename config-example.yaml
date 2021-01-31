@@ -1,8 +1,8 @@
 mqtt:
   serverIP: 192.168.178.62
   port: 1883
-  user: chrak
-  password: ***********************
+  user: *******+++
+  password: *************************+
   timeAddress: Mqtt/DT/d/1/d/BR/T
 
 serviceStatus:
@@ -27,29 +27,58 @@ Mqtt2cmultiBridge:
 mqtt2FileBridge:
   dataFolder: /home/chrak/mqttData 
   infos:
-    - topic: Cmulti/IP/C/1/h/BR/F
-      name: FeuchteDraußen
-    - topic: Cmulti/IP/C/1/d/BR/F
-      name: DruckDraußen
     - topic: Cmulti/H1/H/1/s/BR/d
       name: Heizung_Stufe_1
     - topic: Cmulti/H1/H/1/S/BR/d
       name: Heizung_Stufe_2
+    - topic: Cmulti/C1/C/1/p/BR/F
+      name: Aussendruck
+    - topic: Cmulti/CQ/C/1/t/BR/F
+      name: Aussentemperatur
+    - topic: Cmulti/CQ/C/1/h/BR/F
+      name: Aussenfeuchte
+    - topic: Cmulti/CQ/C/1/l/BR/F
+      name: Aussenlicht
+    - topic: Cmulti/C1/C/1/t/BR/F
+      name: Kellertemperatur
+    - topic: Cmulti/C1/C/1/h/BR/F
+      name: Kellerfeuchte
+    - topic: Cmulti/H1/T/a/t/BR/F
+      name: Vorlauf
+    - topic: Cmulti/H1/T/d/t/BR/F
+      name: Ruecklauf
+    - topic: Cmulti/H1/T/b/t/BR/F
+      name: Wasserbereitung
+    - topic: Cmulti/H1/T/c/t/BR/F
+      name: Waermeerzeuger
 
+zipAndSaveData:
+  sourcePath: /home/chrak/_mytemp
+  destPath: /home/chrak/_test
+  zipFile: mqttData.zip
+  remotePath: mqttData
+
+cloudFtpServer:
+  ftpServer: w0194947.kasserver.com
+  user: **********
+  password: "*****************************+"
+  port: 21
+
+  
 getFtp:
   ip: 192.168.178.62
   port: 210
-  user: myconfig
-  passwd: ***********************
-  logFile: /home/chrak/_mytemp/getFtp.log
+  user: ***************
+  password: ******************************
   directories:
     - 
       remotePath: /backup
       localPath:  /home/chrak/_mytemp
+      remoteCloudPath: /homeAssBackup
 
 fritzBoxMain:
   ip: 192.168.178.1
-  password: ***********************
+  password: "******************************"
   switches:
     - setTopic: Mqtt/Fb/W/1/S/BR/T
       getTopic: Mqtt/Fb/W/1/g/BR/T
