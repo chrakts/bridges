@@ -23,6 +23,7 @@
 * * * * * python3 /home/pi/repositories/bridges/publishTime.py > /tmp/cronBridges.txt
 * * * * * python3 /home/pi/repositories/bridges/publishFritzBox.py > /tmp/cronBridges.txt
 * * * * * python3 /home/pi/repositories/bridges/publishServiceStatus.py > /tmp/cronBridges.txt
-10 * * * * python3 /home/pi/repositories/bridges/getFtp.py > /tmp/cronBridges.txt
+10 * * * * python3 /home/pi/repositories/bridges/getFtp.py >> /tmp/savedData.txt
+30 1 * * * python3 /home/pi/repositories/bridges/mqttDatenSicherung.py >> /tmp/savedData.txt
 
 
