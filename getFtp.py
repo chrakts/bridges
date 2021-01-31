@@ -14,14 +14,10 @@ ftp.connect(dataMap["getFtp"]["ip"],dataMap["getFtp"]["port"])
 ftp.login(dataMap["getFtp"]["user"], dataMap["getFtp"]["password"])
 
 for directory in dataMap["getFtp"]["directories"]:
-  print(directory["remotePath"])
 
   ftp.cwd(directory["remotePath"])
-
   localPath = directory["localPath"]
-
   locFiles = os.listdir(localPath)
-
   files = []
   try:
     files = ftp.nlst()
@@ -32,12 +28,12 @@ for directory in dataMap["getFtp"]["directories"]:
       raise
 
   for remoteFile in files:
+    jetzt = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     if remoteFile in locFiles:
-      print("skip: %s"%remoteFile)
+      pass
+      #print("%s -> skip: %s"%(jetzt,remoteFile))
     else:
-      print("copy: %s"%remoteFile)
-      with open(dataMap["getFtp"]["logFile"], "a") as myfile:
-        myfile.write("%s -> copy: %s\n"%(datetime.now().strftime("%Y-%m-%d %H:%M"),remoteFile))
+      print("%s -> copy: %s"%(jetzt,remoteFile))
       ftp.retrbinary("RETR " + remoteFile, open(localPath+'/'+remoteFile, 'wb').write)
 
 ftp.quit()
