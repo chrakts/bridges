@@ -13,9 +13,14 @@ ftp = ftplib.FTP()
 ftp.connect(dataMap["getFtp"]["ip"],dataMap["getFtp"]["port"])
 ftp.login(dataMap["getFtp"]["user"], dataMap["getFtp"]["password"])
 
+ftpCloud = ftplib.FTP()
+ftpCloud.connect(dataMap["cloudFtpServer"]["ftpServer"],dataMap["cloudFtpServer"]["port"])
+ftpCloud.login(dataMap["cloudFtpServer"]["user"], dataMap["cloudFtpServer"]["password"])
+
 for directory in dataMap["getFtp"]["directories"]:
 
   ftp.cwd(directory["remotePath"])
+  ftpCloud.cwd(directory["remoteCloudPath"])
   localPath = directory["localPath"]
   locFiles = os.listdir(localPath)
   files = []
@@ -35,5 +40,8 @@ for directory in dataMap["getFtp"]["directories"]:
     else:
       print("%s -> copy: %s"%(jetzt,remoteFile))
       ftp.retrbinary("RETR " + remoteFile, open(localPath+'/'+remoteFile, 'wb').write)
+      print("%s -> mv to cloud: %s"%(jetzt,remoteFile))
+      ftpCloud.storbinary("STOR " + remoteFile, open(localPath+'/'+remoteFile, 'rb'))
 
+ftpCloud.quit()
 ftp.quit()
