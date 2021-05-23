@@ -27,12 +27,15 @@ auth = {'username':dataMap["mqtt"]["user"], 'password':dataMap["mqtt"]["password
 dataMap["sonnenBatterie"]["serverAPI"]
 
 while(True):
-  r = requests.get("http://"+dataMap["sonnenBatterie"]["serverAPI"]+":"+str(dataMap["sonnenBatterie"]["serverPort"])+dataMap["sonnenBatterie"]["requestStatus"])
-  data = r.json()
+  try:
+    r = requests.get("http://"+dataMap["sonnenBatterie"]["serverAPI"]+":"+str(dataMap["sonnenBatterie"]["serverPort"])+dataMap["sonnenBatterie"]["requestStatus"])
+    data = r.json()
 
-  for info in dataMap["sonnenBatterie"]["infoList"]:
-    print(info["name"]+": "+str(data[info["name"]]*info["sign"]))
-    
-    publish.single(info["address"],
-      payload=str(data[info["name"]]*info["sign"]), hostname=dataMap["mqtt"]["serverIP"], auth=auth)
+    for info in dataMap["sonnenBatterie"]["infoList"]:
+      print(info["name"]+": "+str(data[info["name"]]*info["sign"]))
+      
+      publish.single(info["address"],
+        payload=str(data[info["name"]]*info["sign"]), hostname=dataMap["mqtt"]["serverIP"], auth=auth)
+  except:
+    pass
   time.sleep(10)
