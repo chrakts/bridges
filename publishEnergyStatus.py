@@ -6,7 +6,7 @@ import time
 from pytz import timezone
 import datetime
 import setproctitle
-setproctitle.setproctitle('py3-publishTime')
+setproctitle.setproctitle('py3-publishEnergyStatus')
 import requests
 
 
