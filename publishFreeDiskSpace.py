@@ -14,6 +14,6 @@ with open(path+'/config.yaml') as f:
 auth = {'username': dataMap["mqtt"]["user"], 'password': dataMap["mqtt"]["password"]}
 
 publish.single(dataMap["mqtt"]["diskFreeAddress"],
-  payload=str(hdd.free//(2**32)),
+  payload=str(hdd.free//(1000**2)),
   hostname=dataMap["mqtt"]["serverIP"],
   auth=auth)
