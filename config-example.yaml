@@ -4,6 +4,7 @@ mqtt:
   user: *******+++
   password: *************************+
   timeAddress: Mqtt/DT/d/1/d/BR/T
+  diskFreeAddress: Mqtt/DF/f/M/d/BR/T
 
 serviceStatus:
     - serviceName: mqtt-bridge

@@ -10,3 +10,4 @@ pip3 install pyserial
 pip3 install PyYAML
 pip3 install pytz
 pip3 install setproctitle
+pip3 install psutil
