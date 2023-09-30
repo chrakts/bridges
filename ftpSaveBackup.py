@@ -10,7 +10,7 @@ with open(path+'/config.yaml') as f:
 
 ftp = ftplib.FTP()
 ftp.connect(dataMap["getFtp"]["ip"],dataMap["getFtp"]["port"])
-ftp.login(dataMap["getFtp"]["user"], dataMap["getFtp"]["passwd"])
+ftp.login(dataMap["getFtp"]["user"], dataMap["getFtp"]["password"])
 
 for directory in dataMap["getFtp"]["directories"]:
   print(directory["remotePath"])
