@@ -12,10 +12,8 @@ with open(path+'/..'+'/config.yaml') as f:
 dataPath = dataMap["mqtt2FileBridge"]["dataFolder"]
 targetPath = dataMap["auswertungen"]["dataFolder"]
 
-resultData = pd.read_csv(targetPath+'/HeizungVerbrauchSummary.csv',  sep=';')
+resultData = pd.read_csv(targetPath+'/HeizungVerbrauchSummary.csv',  sep=';', parse_dates={'Date': [1]})
 resultData = resultData.rolling(7).mean()
 resultData.reset_index(level=0, inplace=True)
 meanYear = resultData.groupby([resultData['Datum'].dt.month, resultData['Datum'].dt.day]).mean()
-#meanYear.drop('Stufe 1', axis=1, inplace=True)
-#meanYear.drop('Stufe 2', axis=1, inplace=True)
 meanYear.to_csv(targetPath+'/meanYear.csv', sep=';')
