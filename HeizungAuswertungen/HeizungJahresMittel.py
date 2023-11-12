@@ -17,4 +17,3 @@ resultData['Heizleistung [l]'] = resultData['Heizleistung [l]'].rolling(7).mean(
 meanYear = resultData.groupby([resultData['Date'].dt.month, resultData['Date'].dt.day]).mean()
 meanYear.to_csv(targetPath+'/HeizungJahresMittel.csv',  sep=';', columns=['Heizleistung [l]'])
 print(meanYear)
- 

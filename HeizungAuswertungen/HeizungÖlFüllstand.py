@@ -3,7 +3,7 @@ import yaml
 from pathlib import Path
 import setproctitle
 import pandas as pd
-setproctitle.setproctitle('py3-HeizungVerbrauchSummary')
+setproctitle.setproctitle('py3-HeizungÖlFüllstand')
 
 
 def calcOilFuture(actual, date):
@@ -49,4 +49,4 @@ füllstand = füllstand + future
 resultData = pd.DataFrame()
 resultData['Datum'] = datumList
 resultData['Füllung[l]'] = füllstand
-resultData.to_csv(targetPath+'/Füllstand Aktuell.csv', sep=';')
+resultData.to_csv(targetPath+'/HeizungÖlFüllstand.csv', sep=';')
