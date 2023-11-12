@@ -1,24 +1,24 @@
 import inspect, os
 import yaml
-from pathlib import Path
 import setproctitle
 import pandas as pd
+import paho.mqtt.publish as publish
 setproctitle.setproctitle('py3-HeizungÖlFüllstand')
 
 
 def calcOilFuture(actual, date):
     meanData = pd.read_csv(targetPath + "/HeizungJahresMittel.csv", sep=';')
     todayIndex = date.timetuple().tm_yday
-    future = []
+    futureOil = []
     datumfuture = []
     for i in range(0, 365):
         dayIndex = todayIndex + i
         if dayIndex > 365:
             dayIndex = dayIndex - 365
         actual = actual - meanData["Heizleistung [l]"][dayIndex]
-        future.append(actual)
+        futureOil.append(actual)
         datumfuture.append(date + pd.Timedelta(days=i+1))
-    return datumfuture, future
+    return datumfuture, futureOil
 
 
 path = (os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
@@ -42,7 +42,11 @@ for (verbrauch, datum) in zip(data["Heizleistung [l]"], data["Date"]):
         füllstand.append(füllstand[-1] - verbrauch)
     datumList.append(datum.date())
 
+aktuellerFüllstand = füllstand[-1]
+
 (datumFutureList, future) = calcOilFuture(füllstand[-1], datumList[-1])
+plusJahrFüllstand = future[-1]
+
 datumList = datumList + datumFutureList
 füllstand = füllstand + future
 
@@ -50,3 +54,6 @@ resultData = pd.DataFrame()
 resultData['Datum'] = datumList
 resultData['Füllung[l]'] = füllstand
 resultData.to_csv(targetPath+'/HeizungÖlFüllstand.csv', sep=';')
+
+auth = {'username': dataMap["mqtt"]["user"], 'password': dataMap["mqtt"]["password"]}
+publish.single('oelstand/aktuell', payload=str(aktuellerFüllstand), hostname=dataMap["mqtt"]["serverIP"], auth=auth)
