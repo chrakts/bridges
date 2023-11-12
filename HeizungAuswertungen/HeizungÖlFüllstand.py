@@ -56,4 +56,5 @@ resultData['Füllung[l]'] = füllstand
 resultData.to_csv(targetPath+'/HeizungÖlFüllstand.csv', sep=';')
 
 auth = {'username': dataMap["mqtt"]["user"], 'password': dataMap["mqtt"]["password"]}
-publish.single('oelstand/aktuell', payload=str(aktuellerFüllstand), hostname=dataMap["mqtt"]["serverIP"], auth=auth)
+publish.single('oelstand/aktuell', payload="%d" % aktuellerFüllstand, hostname=dataMap["mqtt"]["serverIP"], auth=auth)
+publish.single('oelstand/plusJahr', payload="%d" % plusJahrFüllstand, hostname=dataMap["mqtt"]["serverIP"], auth=auth)
