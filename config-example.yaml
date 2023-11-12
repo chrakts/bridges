@@ -26,10 +26,10 @@ Mqtt2cmultiBridge:
   listenTo : Mqtt/#
 
 auswertungen:
-  dataFolder: /home/chrak/Auswertungen
+  dataFolder: /home/pi/Auswertungen
 
 mqtt2FileBridge:
-  dataFolder: /home/chrak/mqttData 
+  dataFolder: /home/pi/mqttData 
   infos:
     - topic: Cmulti/H1/H/1/s/BR/d
       name: Heizung_Stufe_1

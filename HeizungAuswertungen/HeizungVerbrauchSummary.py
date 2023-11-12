@@ -33,4 +33,4 @@ for path in files:
   resultData = pd.concat([resultData, row.to_frame().T])
 
 resultData["Heizleistung [l]"] = 1.31 * (resultData['Stufe 1'] + resultData['Stufe 2'] * 0.6) / 3600.0
-resultData.to_csv(targetPath+'/HeizungVerbrauchSummary.csv', sep=';')
+resultData.to_csv(targetPath+'/HeizungVerbrauchSummary.csv', sep=';', columns=['Datum', 'Heizleistung [l]'])
