@@ -25,6 +25,9 @@ Mqtt2cmultiBridge:
   baudRate : 115200
   listenTo : Mqtt/#
 
+auswertungen:
+  dataFolder: /home/chrak/Auswertungen
+
 mqtt2FileBridge:
   dataFolder: /home/chrak/mqttData 
   infos:
