@@ -58,9 +58,11 @@ resultData.to_csv(targetPath+'/HeizungÖlFüllstand.csv', sep=';')
 auth = {'username': dataMap["mqtt"]["user"], 'password': dataMap["mqtt"]["password"]}
 publish.single('oelstand/aktuell', payload="%d" % aktuellerFüllstand, hostname=dataMap["mqtt"]["serverIP"], auth=auth)
 publish.single('oelstand/plusJahr', payload="%d" % plusJahrFüllstand, hostname=dataMap["mqtt"]["serverIP"], auth=auth)
-if plusJahrFüllstand <= 800:
-    rest800 = resultData[resultData["Füllung[l]"] > 800].iloc[0]
-    print(rest800)
-    publish.single('oelstand/rest800', payload="%s" % str(rest800), hostname=dataMap["mqtt"]["serverIP"], auth=auth)
+
+restMenge = 500
+if plusJahrFüllstand <= restMenge:
+    restDatum = resultData[resultData["Füllung[l]"] < restMenge].iloc[0]["Datum"]
+    publish.single('oelstand/restMenge', payload="<%dl am %s" % (restMenge, str(restDatum)), hostname=dataMap["mqtt"]["serverIP"], auth=auth)
 else:
-    publish.single('oelstand/rest800', payload="> 1 Jahr", hostname=dataMap["mqtt"]["serverIP"], auth=auth)
+    publish.single('oelstand/restMenge', payload="<%dl > 1 Jahr" % restMenge, hostname=dataMap["mqtt"]["serverIP"], auth=auth)
+
