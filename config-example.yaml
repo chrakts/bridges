@@ -1,9 +1,9 @@
 mqtt:
-  serverIP: 192.168.178.62
+  serverIP: *******************************
   port: 1883
-  user: *******+++
-  password: *************************+
-  timeAddress: Mqtt/DT/d/1/d/BR/T
+  user: *******************************
+  password: ********************************
+  timeAddress: Mqtt/DT/t/1/s/BR/T
   diskFreeAddress: Mqtt/DF/f/M/d/BR/T
 
 serviceStatus:
@@ -15,21 +15,44 @@ serviceStatus:
       serviceAddress: Mqtt/SV/z/1/d/BR/T
     - serviceName: cmulti-bridge
       serviceAddress: Mqtt/SV/c/1/d/BR/T
- 
+
+sonnenBatterie:
+  serverAPI: *******************************
+  serverPort: 8080
+  requestStatus: /api/v1/status
+  infoList:
+    - name:    Consumption_W
+      address: Mqtt/HA/E/C/a/BR/T
+      sign:    1
+    - name:    Production_W
+      address: Mqtt/HA/E/S/a/BR/T
+      sign:    1
+    - name:    Pac_total_W
+      address: Mqtt/HA/E/B/a/BR/T
+      sign:    -1
+    - name:    GridFeedIn_W
+      address: Mqtt/HA/E/G/a/BR/T
+      sign:    1
+    - name:    RSOC
+      address: Mqtt/HA/B/L/a/BR/T
+      sign:    1
+
+
 cmulti2MqttBridge:
   comPort : /dev/RS485-2
   baudRate : 57600
-  
+
 Mqtt2cmultiBridge:
-  comPort : /dev/ttyS0     
+  comPort : /dev/ttyS0  # war
   baudRate : 115200
   listenTo : Mqtt/#
 
 auswertungen:
   dataFolder: /home/pi/Auswertungen
 
+
 mqtt2FileBridge:
-  dataFolder: /home/pi/mqttData 
+  dataFolder: /home/pi/mqttData
   infos:
     - topic: Cmulti/H1/H/1/s/BR/d
       name: Heizung_Stufe_1
@@ -55,34 +78,50 @@ mqtt2FileBridge:
       name: Wasserbereitung
     - topic: Cmulti/H1/T/c/t/BR/F
       name: Waermeerzeuger
+    - name:    Verbrauch
+      topic: Mqtt/HA/E/C/a/BR/T
+    - name:    Solarerzeugung
+      topic: Mqtt/HA/E/S/a/BR/T
+    - name:    Batterieleistung
+      topic: Mqtt/HA/E/B/a/BR/T
+    - name:    Netzbezug
+      topic: Mqtt/HA/E/G/a/BR/T
+    - name:    Batterieladestatus
+      topic: Mqtt/HA/B/L/a/BR/T
+    - name: Pflanzenfeuchte
+      topic: Cmulti/W1/F/A/i/BR/T
+    - name: Pflanzentemperatur
+      topic: Cmulti/W1/T/A/i/BR/T
 
 zipAndSaveData:
-  sourcePath: /home/chrak/_mytemp
-  destPath: /home/chrak/_test
+  sourcePath: /home/pi/mqttData
+  destPath: /home/pi/mqttDataZipped
   zipFile: mqttData.zip
   remotePath: mqttData
 
 cloudFtpServer:
-  ftpServer: w0194947.kasserver.com
-  user: **********
-  password: "*****************************+"
+  ftpServer: *******************************
+  user: *******************************
+  password: *******************************
   port: 21
 
-  
+
 getFtp:
-  ip: 192.168.178.62
+  ip: *******************************
   port: 210
-  user: ***************
-  password: ******************************
+  user: *******************************
+  password: *******************************
+  logFile: /home/pi/homeAssBackup/getFtp.log
   directories:
-    - 
+    -
       remotePath: /backup
-      localPath:  /home/chrak/_mytemp
+      localPath:  /home/pi/homeAssBackup
       remoteCloudPath: /homeAssBackup
 
 fritzBoxMain:
-  ip: 192.168.178.1
-  password: "******************************"
+  ip: *******************************
+  user: *******************************
+  password: *******************************
   switches:
     - setTopic: Mqtt/Fb/W/1/S/BR/T
       getTopic: Mqtt/Fb/W/1/g/BR/T
@@ -93,6 +132,6 @@ fritzBoxMain:
     - setTopic: Mqtt/Fb/W/3/S/BR/T
       getTopic: Mqtt/Fb/W/3/g/BR/T
       command: WLANConfiguration3
-  
+
 # Mqtt/Quelle/Function/Address/Job/Target/Datatype
-# 0    1      2        3       4   5      6  
+# 0    1      2        3       4   5      6
