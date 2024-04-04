@@ -6,7 +6,7 @@ import time
 from pytz import timezone
 import datetime
 import setproctitle
-setproctitle.setproctitle('py3-publishEnergyStatus')
+setproctitle.setproctitle('py3-publishSonnenStatus')
 
 
 tz = timezone('Europe/Berlin')
