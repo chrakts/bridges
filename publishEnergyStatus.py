@@ -28,7 +28,7 @@ dataMap["sonnenBatterie"]["serverAPI"]
 
 while(True):
   try:
-    r = requests.get("http://"+dataMap["sonnenBatterie"]["serverAPI"]+":"+str(dataMap["sonnenBatterie"]["serverPort"])+dataMap["sonnenBatterie"]["requestStatus"])
+    r = requests.get("http://"+dataMap["sonnenBatterie2"]["serverAPI"]+":"+str(dataMap["sonnenBatterie"]["serverPort"])+dataMap["sonnenBatterie"]["requestStatus"])
     data = r.json()
 
     for info in dataMap["sonnenBatterie"]["infoList"]:

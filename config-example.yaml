@@ -37,6 +37,53 @@ sonnenBatterie:
       address: Mqtt/HA/B/L/a/BR/T
       sign:    1
 
+sonnenBatterie2:
+  serverAPI: ***************
+  serverPort: 80
+  Auth-Token: *********************************
+  publishTime_s: 10
+  requests:
+    -
+      request: powermeter
+      infoList:
+        - parameter: w_l1
+          index: 0
+          address: Mqtt/HA/E/P/1/BR/T
+          sign: 1
+        - parameter: w_l2
+          index: 0
+          address: Mqtt/HA/E/P/2/BR/T
+          sign: 1
+        - parameter: w_l3
+          index: 0
+          address: Mqtt/HA/E/P/3/BR/T
+          sign: 1
+        - parameter: w_l1
+          index: 1
+          address: Mqtt/HA/E/P/A/BR/T
+          sign: 1
+        - parameter: w_l2
+          index: 1
+          address: Mqtt/HA/E/P/B/BR/T
+          sign: 1
+        - parameter: w_l3
+          index: 1
+          address: Mqtt/HA/E/P/C/BR/T
+          sign: 1
+        - parameter: kwh_imported
+          index: 0
+          address: Mqtt/HA/E/P/X/BR/T
+          sign: 1
+        - parameter: kwh_imported
+          index: 1
+          address: Mqtt/HA/E/P/I/BR/T
+          sign: -1
+    -
+      request: configurations
+      infoList:
+        - parameter: EM_Prognosis_Charging
+          address: Mqtt/HA/E/C/P/BR/T
+
 
 cmulti2MqttBridge:
   comPort : /dev/RS485-2
