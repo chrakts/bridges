@@ -23,7 +23,7 @@ auth = {'username': dataMap["mqtt"]["user"], 'password': dataMap["mqtt"]["passwo
 var = dataMap["sonnenBatterie2"]["serverAPI"]
 
 while True:
-  if True:
+  try:
     for req in dataMap["sonnenBatterie2"]["requests"]:
       url = "http://" + dataMap["sonnenBatterie2"]["serverAPI"]+":"+str(dataMap["sonnenBatterie2"]["serverPort"])+'/api/v2/'+req['request']
       headers = {'Auth-Token': '{}'.format(dataMap["sonnenBatterie2"]['Auth-Token'])}
@@ -40,6 +40,6 @@ while True:
           strResult = str(result)
         print(info["parameter"] + ": " + strResult)
         publish.single(info["address"], payload=strResult, hostname=dataMap["mqtt"]["serverIP"], auth=auth)
-  #except:
-  #  pass
+  except:
+    pass
   time.sleep(dataMap["sonnenBatterie2"]["publishTime_s"])
