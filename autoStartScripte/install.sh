@@ -10,8 +10,8 @@ systemctl enable mqtt-bridge.service
 systemctl enable cmulti-bridge.service
 systemctl enable mqtt2FileBridge.service
 systemctl enable mqttFritzboxBridge.service
-systemctl start publishEnergyStatus.service
-systemctl start publishSonnenStatus.service
+systemctl enable publishEnergyStatus.service
+systemctl enable publishSonnenStatus.service
 
 cp ll /home/pi/.local/bin
 cp la /home/pi/.local/bin
