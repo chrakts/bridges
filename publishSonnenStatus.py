@@ -40,6 +40,7 @@ while True:
           strResult = str(result)
         print(info["parameter"] + ": " + strResult)
         publish.single(info["address"], payload=strResult, hostname=dataMap["mqtt"]["serverIP"], auth=auth)
+        time.sleep(0.1)
   except:
     pass
   time.sleep(dataMap["sonnenBatterie2"]["publishTime_s"])

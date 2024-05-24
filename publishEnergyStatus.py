@@ -36,6 +36,7 @@ while(True):
       
       publish.single(info["address"],
         payload=str(data[info["name"]]*info["sign"]), hostname=dataMap["mqtt"]["serverIP"], auth=auth)
+      time.sleep(0.1)
   except:
     pass
   time.sleep(10)
