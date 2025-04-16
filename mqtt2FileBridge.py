@@ -1,6 +1,6 @@
 import inspect, os
 import signal
-from PyCRC.CRCCCITT import CRCCCITT
+#from PyCRC.CRCCCITT import CRCCCITT
 import yaml
 import datetime
 import paho.mqtt.client as mqtt
