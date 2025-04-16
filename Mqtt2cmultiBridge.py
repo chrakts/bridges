@@ -1,6 +1,7 @@
 import inspect, os
 import paho.mqtt.client as mqtt
-from PyCRC.CRCCCITT import CRCCCITT
+#from PyCRC.CRCCCITT import CRCCCITT
+from crc import Calculator, Crc16
 import yaml
 import serial
 import time
@@ -26,7 +27,10 @@ def on_message(client, userdata, msg):
     st = st +'<'
   l = len(st)+6
   st = "#%02x"%(l)+st
-  crcString = ("%04x" % (CRCCCITT().calculate(st)))
+  calculator = Calculator(Crc16.XMODEM)
+
+  crcString = ("%04x" % (calculator.checksum(st.encode('utf-8'))))
+  #crcString = ("%04x" % (CRCCCITT().calculate(st)))
   st = st + crcString + "\r\n"
   CmultiServer.write(st.encode('utf-8'))
   print("Write to CMultiServer: "+st)
