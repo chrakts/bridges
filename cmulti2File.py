@@ -1,7 +1,8 @@
 import inspect, os
 import serial 
 import signal
-from PyCRC.CRCCCITT import CRCCCITT
+from crc import Calculator, Crc16
+#from PyCRC.CRCCCITT import CRCCCITT
 import yaml
 import datetime
 
@@ -87,7 +88,8 @@ try:
         actLength += 1
         actCommand += test
         if(actLength==length):
-          crcString = ("%04x" % (CRCCCITT().calculate(actCommand[:-4])))
+          calculator = Calculator(Crc16.XMODEM)
+          crcString = ("%04x" % (calculator.checksum(actCommand[:-4].encode('utf-8'))))
           if crcString==actCommand[-4:]:
             print(actCommand)
             print("crc-ok")
