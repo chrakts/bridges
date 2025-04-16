@@ -2,10 +2,12 @@ import inspect, os
 import paho.mqtt.publish as publish
 import serial
 import signal
-from PyCRC.CRCCCITT import CRCCCITT
+from crc import Calculator, Crc16
+#from PyCRC.CRCCCITT import CRCCCITT
 import yaml
 import setproctitle
 setproctitle.setproctitle('py3-cmulti2MqttBridge')
+import traceback
 
 #publish.single("home-assistant/window/contact", "ON", hostname="192.168.178.27")
 
@@ -39,7 +41,9 @@ def input(self):
    crcString = hello[-5:-1]
    signString = hello[-6:-5]
    answerString = hello[1:-5]
-   if crcString == ("%04x" % (CRCCCITT().calculate(answerString))):
+   calculator = Calculator(Crc16.XMODEM)
+   #if crcString == ("%04x" % (CRCCCITT().calculate(answerString))):
+   if crcString == ("%04x" % (calculator.checksum(answerString.encode('utf-8')))):
     crcState = True
    else:
     crcState = False
@@ -89,7 +93,8 @@ try:
         actLength += 1
         actCommand += test
         if(actLength==length):
-          crcString = ("%04x" % (CRCCCITT().calculate(actCommand[:-4])))
+          calculator = Calculator(Crc16.XMODEM)
+          crcString = ("%04x" % (calculator.checksum(actCommand[:-4].encode('utf-8'))))
           if crcString==actCommand[-4:]:
             print(actCommand)
             print("crc-ok")
@@ -118,6 +123,8 @@ try:
           status = NO_MESSAGE
     except Exception as e: 
       print(e)
+      print(traceback.format_exc())
+      print("---------------")
       status = NO_MESSAGE
 
 except KeyboardInterrupt:
