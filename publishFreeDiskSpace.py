@@ -3,7 +3,7 @@ import paho.mqtt.publish as publish
 import yaml
 import inspect,os
 import setproctitle
-setproctitle.setproctitle('py3-publishTime')
+setproctitle.setproctitle('py3-publishFreeDiskSpace')
 
 hdd = psutil.disk_usage('/')
 
@@ -13,7 +13,11 @@ with open(path+'/config.yaml') as f:
 
 auth = {'username': dataMap["mqtt"]["user"], 'password': dataMap["mqtt"]["password"]}
 
+result = str(hdd.free//(1000**2))
+
 publish.single(dataMap["mqtt"]["diskFreeAddress"],
-  payload=str(hdd.free//(1000**2)),
+  payload=result,
   hostname=dataMap["mqtt"]["serverIP"],
   auth=auth)
+
+print(result)
