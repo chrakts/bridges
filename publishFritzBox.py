@@ -17,3 +17,5 @@ fc = FritzConnection(dataMap["fritzBoxMain"]["ip"], user=dataMap["fritzBoxMain"]
 for info in dataMap["fritzBoxMain"]["switches"]:
   wlan = str(int(fc.call_action(info["command"], 'GetInfo')["NewEnable"]))
   publish.single(info["getTopic"], payload=wlan, hostname=dataMap["mqtt"]["serverIP"], auth=auth)
+
+print("veröffentlich")
