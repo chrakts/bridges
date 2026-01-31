@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=RS485-Multi
+Exec=python3 -m serial.tools.miniterm -e /dev/board-1 57600
+Comment=
+Terminal=true
+Icon=cinnamon-panel-launcher
+Type=Application
+Name[de_DE]=RS485-Multi

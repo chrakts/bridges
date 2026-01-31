@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=RS485-1
+Exec=python3 -m serial.tools.miniterm -e /dev/RS485-1 57600
+Comment=
+Terminal=true
+Icon=cinnamon-panel-launcher
+Type=Application
+Name[de_DE]=RS485-2
