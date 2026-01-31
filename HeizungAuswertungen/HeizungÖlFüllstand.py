@@ -28,19 +28,20 @@ with open(path+'/..'+'/config.yaml') as f:
 dataPath = dataMap["mqtt2FileBridge"]["dataFolder"]
 targetPath = dataMap["auswertungen"]["dataFolder"]
 referenzenPath = (os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
+data = pd.read_csv(targetPath + "/HeizungVerbrauchSummary.csv", parse_dates=["Datum"], sep=';', decimal='.')
+referenzen = pd.read_csv(referenzenPath + "/ÖlReferenzen.csv", parse_dates=["Datum"], sep=';', decimal=',', dayfirst=True)
 
-data = pd.read_csv(targetPath + "/HeizungVerbrauchSummary.csv", parse_dates={'Date': [1]}, sep=';', decimal='.')
-referenzen = pd.read_csv(referenzenPath + "/ÖlReferenzen.csv", parse_dates={'Date': [0]}, sep=';', decimal=',', dayfirst=True)
-
-referenzen = referenzen.set_index('Date')
+referenzen = referenzen.set_index('Datum')
 füllstand = [6000.0]
-datumList = [data['Date'][0].date()]
-for (verbrauch, datum) in zip(data["Heizleistung [l]"], data["Date"]):
+datumList = [data['Datum'][0].date()]
+for (verbrauch, datum) in zip(data["Heizleistung [l]"], data["Datum"]):
     try:
         füllstand.append(referenzen[referenzen.index.isin([datum.date()])]['Füllstand [l]'][0])
     except:
         füllstand.append(füllstand[-1] - verbrauch)
     datumList.append(datum.date())
+
+print(füllstand)
 
 aktuellerFüllstand = füllstand[-1]
 
