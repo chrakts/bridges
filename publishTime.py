@@ -26,3 +26,4 @@ publish.single(dataMap["mqtt"]["timeAddress"],
   payload=str(t),
   hostname=dataMap["mqtt"]["serverIP"],
   auth=auth)
+print(t)
